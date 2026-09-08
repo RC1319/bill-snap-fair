@@ -1,0 +1,75 @@
+[
+  {
+    "id": "bill_001",
+    "title": "Truffles Dinner",
+    "merchant_name": "Truffles Bistro",
+    "date": "2026-03-01",
+    "category": "Restaurant",
+    "currency": "INR",
+    "subtotal": 1200.0,
+    "cgst": 30.0,
+    "sgst": 30.0,
+    "service_charge": 60.0,
+    "discount": 0.0,
+    "tip": 0.0,
+    "total": 1320.0,
+    "status": "settled",
+    "payer_id": "p_1",
+    "created_at": "2026-03-01T20:30:00",
+    "people": [
+      "p_1",
+      "p_2",
+      "p_3"
+    ],
+    "items": [
+      {
+        "id": "i1",
+        "name": "All American Burger",
+        "quantity": 2,
+        "unit_price": 280.0,
+        "total_price": 560.0,
+        "confidence": 0.98,
+        "assigned_to": [
+          "p_1",
+          "p_2"
+        ]
+      },
+      {
+        "id": "i2",
+        "name": "Peri Peri Fries",
+        "quantity": 1,
+        "unit_price": 160.0,
+        "total_price": 160.0,
+        "confidence": 0.95,
+        "assigned_to": [
+          "p_1",
+          "p_2",
+          "p_3"
+        ]
+      },
+      {
+        "id": "i3",
+        "name": "Cold Coffee with Ice Cream",
+        "quantity": 2,
+        "unit_price": 150.0,
+        "total_price": 300.0,
+        "confidence": 0.97,
+        "assigned_to": [
+          "p_1",
+          "p_3"
+        ]
+      },
+      {
+        "id": "i4",
+        "name": "Chocolate Fantasy Shake",
+        "quantity": 1,
+        "unit_price": 180.0,
+        "total_price": 180.0,
+        "confidence": 0.94,
+        "assigned_to": [
+          "p_2"
+        ]
+      }
+    ]
+  }
+]

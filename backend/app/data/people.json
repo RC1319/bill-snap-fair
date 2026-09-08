@@ -1,0 +1,72 @@
+[
+  {
+    "id": "p_1",
+    "name": "You (Me)",
+    "email": "me@example.com",
+    "avatar": null,
+    "accent": "gold",
+    "bills_count": 5,
+    "total_paid": 4500.0,
+    "total_owed": 0.0
+  },
+  {
+    "id": "p_2",
+    "name": "Aarav Sharma",
+    "email": "aarav@example.com",
+    "avatar": null,
+    "accent": "teal",
+    "bills_count": 4,
+    "total_paid": 1200.0,
+    "total_owed": 650.0
+  },
+  {
+    "id": "p_3",
+    "name": "Priya Patel",
+    "email": "priya@example.com",
+    "avatar": null,
+    "accent": "rose",
+    "bills_count": 3,
+    "total_paid": 0.0,
+    "total_owed": 420.0
+  },
+  {
+    "id": "p_4",
+    "name": "Rohan Mehta",
+    "email": "rohan@example.com",
+    "avatar": null,
+    "accent": "emerald",
+    "bills_count": 2,
+    "total_paid": 800.0,
+    "total_owed": 300.0
+  },
+  {
+    "id": "p_5",
+    "name": "Ananya Singh",
+    "email": "ananya@example.com",
+    "avatar": null,
+    "accent": "amber",
+    "bills_count": 2,
+    "total_paid": 0.0,
+    "total_owed": 580.0
+  },
+  {
+    "name": "Dev Tester",
+    "email": null,
+    "avatar": null,
+    "accent": "teal",
+    "id": "p_ba754",
+    "bills_count": 0,
+    "total_paid": 0.0,
+    "total_owed": 0.0
+  },
+  {
+    "name": "Dev Tester",
+    "email": null,
+    "avatar": null,
+    "accent": "teal",
+    "id": "p_031ca",
+    "bills_count": 0,
+    "total_paid": 0.0,
+    "total_owed": 0.0
+  }
+]
