@@ -1,0 +1,13 @@
+# Linguist language detection attributes
+*.py linguist-detectable=true
+*.tsx linguist-detectable=true
+*.ts linguist-detectable=true
+*.jsx linguist-detectable=true
+*.js linguist-detectable=true
+
+# Mark lockfiles and generated files as vendored/generated so they don't skew language stats
+*.lock linguist-vendored
+*.lock.json linguist-vendored
+package-lock.json linguist-generated
+bun.lock linguist-generated
+bunfig.toml linguist-generated

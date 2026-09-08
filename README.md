@@ -20,27 +20,36 @@
 
 ---
 
-## 🚀 Quick Start (Frontend)
+## 🚀 Quick Start
 
-### Prerequisites
-- **Node.js**: v18.0.0 or higher ([Download Node.js](https://nodejs.org/))
-
-### Installation & Running
+### 1. Backend (FastAPI Python Service)
 
 ```bash
-# 1. Install dependencies
-npm install
+# Navigate to backend
+cd backend
 
-# 2. Start Vite development server
-npm run dev
+# Create & activate virtual environment (optional but recommended)
+python -m venv venv
+venv\Scripts\activate   # On Windows
+# source venv/bin/activate  # On macOS/Linux
 
-# 3. Build for production
-npm run build
+# Install dependencies
+pip install -r requirements.txt
 
-# 4. Preview production build
-npm run preview
+# Run development server
+python run.py
+# Or with uvicorn:
+uvicorn app.main:app --reload --port 8000
 ```
+Backend API will run at `http://localhost:8000` (API Docs at `http://localhost:8000/docs`).
 
+### 2. Frontend (React 19 + Vite)
+
+```bash
+# In the repository root
+npm install
+npm run dev
+```
 Open your browser and navigate to `http://localhost:5173`.
 
 ---
@@ -49,25 +58,26 @@ Open your browser and navigate to `http://localhost:5173`.
 
 ```plaintext
 bill-snap-fair/
-├── src/
-│   ├── components/       # UI components (common, layout, dialogs, forms)
-│   ├── pages/            # Main application views:
-│   │   ├── LandingPage.jsx       # Welcome & intro
-│   │   ├── DashboardPage.jsx     # Overview & statistics
-│   │   ├── UploadBillPage.jsx    # Receipt image upload & preview
-│   │   ├── ReviewBillPage.jsx    # Line item verification & editing
-│   │   ├── AddPeoplePage.jsx     # Add friends & assign avatars
-│   │   ├── AssignItemsPage.jsx   # Interactive item-to-person assigner
-│   │   ├── BillChargesPage.jsx   # Tax, tip, discount & surcharge inputs
-│   │   ├── BillSummaryPage.jsx   # Finalized breakdown per person
-│   │   ├── SettlementPage.jsx    # Min-cash-flow payment transfers
-│   │   ├── BillHistoryPage.jsx   # Past bills list
-│   │   └── ActivityPage.jsx      # Recent activity log
-│   ├── services/         # API connector & mock calculation engine
-│   ├── context/          # Application global state (SplitFlowContext)
-│   └── styles.css        # Global CSS tokens and theme
-├── package.json          # Dependencies and scripts
-└── vite.config.ts        # Vite configuration
+├── backend/                  # Python FastAPI Backend
+│   ├── app/
+│   │   ├── main.py           # FastAPI entry point & CORS
+│   │   ├── config.py         # App configuration & env variables
+│   │   ├── routers/          # API routes (bills, ocr, splits, people, activity)
+│   │   ├── services/         # OCR AI engine & split calculation services
+│   │   ├── models/           # Pydantic schemas (bill, split, person, etc.)
+│   │   └── utils/            # Windows OCR & Receipt text parsers
+│   ├── tests/                # Pytest test suite
+│   ├── requirements.txt      # Python dependencies
+│   └── run.py                # Server launcher script
+├── src/                      # React Frontend
+│   ├── components/           # UI components (common, layout, dialogs, forms)
+│   ├── pages/                # Main application views
+│   ├── services/             # API connector & split math services
+│   ├── context/              # SplitFlowContext global state
+│   └── styles.css            # Global CSS tokens and theme
+├── package.json              # Frontend dependencies and scripts
+├── vite.config.ts            # Vite configuration
+└── .gitattributes            # Language and repository configurations
 ```
 
 ---
