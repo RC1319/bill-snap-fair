@@ -7,10 +7,13 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SplitFlowProvider } from "../context/SplitFlowContext";
+import Sidebar from "../components/layout/Sidebar";
+import Header from "../components/layout/Header";
+import MobileNav from "../components/layout/MobileNav";
 
 function NotFoundComponent() {
   return (
@@ -37,9 +40,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -72,25 +72,27 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+const googleFontsLink =
+  "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap";
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "SplitSnap — Snap. Assign. Split." },
+      { name: "description", content: "Turn any bill into a fair, transparent split. Upload a receipt, assign items, and let SplitSnap calculate what each person owes." },
+      { name: "author", content: "SplitSnap" },
+      { property: "og:title", content: "SplitSnap — Fair Bill Splitting" },
+      { property: "og:description", content: "Snap a bill, assign what everyone had, and let SplitSnap calculate exactly what each person owes." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" as const },
+      { rel: "stylesheet", href: googleFontsLink },
+      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
@@ -116,11 +118,36 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  const pathname = router.state.location.pathname;
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const isLanding = pathname === "/";
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <SplitFlowProvider>
+        {isLanding ? (
+          <Outlet />
+        ) : (
+          <div className="flex min-h-screen">
+            <Sidebar
+              collapsed={sidebarCollapsed}
+              onToggle={() => setSidebarCollapsed((c) => !c)}
+            />
+            <div
+              className={`flex-1 flex flex-col transition-all duration-300 ${
+                sidebarCollapsed ? "md:ml-[72px]" : "md:ml-[240px]"
+              }`}
+            >
+              <Header />
+              <main className="flex-1 pb-20 md:pb-0">
+                <Outlet />
+              </main>
+            </div>
+            <MobileNav />
+          </div>
+        )}
+      </SplitFlowProvider>
     </QueryClientProvider>
   );
 }

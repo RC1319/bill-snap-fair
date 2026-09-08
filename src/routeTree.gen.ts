@@ -10,33 +10,219 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ActivityRouteImport } from './routes/activity'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as PeopleRouteImport } from './routes/people'
+import { Route as BillsIndexRouteImport } from './routes/bills.index'
+import { Route as BillsIdRouteImport } from './routes/bills.$id'
+import { Route as NewAssignRouteImport } from './routes/new/assign'
+import { Route as NewChargesRouteImport } from './routes/new/charges'
+import { Route as NewManualRouteImport } from './routes/new/manual'
+import { Route as NewPeopleRouteImport } from './routes/new/people'
+import { Route as NewReviewRouteImport } from './routes/new/review'
+import { Route as NewSettleRouteImport } from './routes/new/settle'
+import { Route as NewSettlementRouteImport } from './routes/new/settlement'
+import { Route as NewSummaryRouteImport } from './routes/new/summary'
+import { Route as NewUploadRouteImport } from './routes/new/upload'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActivityRoute = ActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeopleRoute = PeopleRouteImport.update({
+  id: '/people',
+  path: '/people',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BillsIndexRoute = BillsIndexRouteImport.update({
+  id: '/bills/',
+  path: '/bills/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BillsIdRoute = BillsIdRouteImport.update({
+  id: '/bills/$id',
+  path: '/bills/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewAssignRoute = NewAssignRouteImport.update({
+  id: '/new/assign',
+  path: '/new/assign',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewChargesRoute = NewChargesRouteImport.update({
+  id: '/new/charges',
+  path: '/new/charges',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewManualRoute = NewManualRouteImport.update({
+  id: '/new/manual',
+  path: '/new/manual',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewPeopleRoute = NewPeopleRouteImport.update({
+  id: '/new/people',
+  path: '/new/people',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewReviewRoute = NewReviewRouteImport.update({
+  id: '/new/review',
+  path: '/new/review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewSettleRoute = NewSettleRouteImport.update({
+  id: '/new/settle',
+  path: '/new/settle',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewSettlementRoute = NewSettlementRouteImport.update({
+  id: '/new/settlement',
+  path: '/new/settlement',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewSummaryRoute = NewSummaryRouteImport.update({
+  id: '/new/summary',
+  path: '/new/summary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewUploadRoute = NewUploadRouteImport.update({
+  id: '/new/upload',
+  path: '/new/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
+  '/dashboard': typeof DashboardRoute
+  '/people': typeof PeopleRoute
+  '/bills/$id': typeof BillsIdRoute
+  '/new/assign': typeof NewAssignRoute
+  '/new/charges': typeof NewChargesRoute
+  '/new/manual': typeof NewManualRoute
+  '/new/people': typeof NewPeopleRoute
+  '/new/review': typeof NewReviewRoute
+  '/new/settle': typeof NewSettleRoute
+  '/new/settlement': typeof NewSettlementRoute
+  '/new/summary': typeof NewSummaryRoute
+  '/new/upload': typeof NewUploadRoute
+  '/bills/': typeof BillsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
+  '/dashboard': typeof DashboardRoute
+  '/people': typeof PeopleRoute
+  '/bills/$id': typeof BillsIdRoute
+  '/new/assign': typeof NewAssignRoute
+  '/new/charges': typeof NewChargesRoute
+  '/new/manual': typeof NewManualRoute
+  '/new/people': typeof NewPeopleRoute
+  '/new/review': typeof NewReviewRoute
+  '/new/settle': typeof NewSettleRoute
+  '/new/settlement': typeof NewSettlementRoute
+  '/new/summary': typeof NewSummaryRoute
+  '/new/upload': typeof NewUploadRoute
+  '/bills': typeof BillsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
+  '/dashboard': typeof DashboardRoute
+  '/people': typeof PeopleRoute
+  '/bills/$id': typeof BillsIdRoute
+  '/new/assign': typeof NewAssignRoute
+  '/new/charges': typeof NewChargesRoute
+  '/new/manual': typeof NewManualRoute
+  '/new/people': typeof NewPeopleRoute
+  '/new/review': typeof NewReviewRoute
+  '/new/settle': typeof NewSettleRoute
+  '/new/settlement': typeof NewSettlementRoute
+  '/new/summary': typeof NewSummaryRoute
+  '/new/upload': typeof NewUploadRoute
+  '/bills/': typeof BillsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/activity'
+    | '/dashboard'
+    | '/people'
+    | '/bills/$id'
+    | '/new/assign'
+    | '/new/charges'
+    | '/new/manual'
+    | '/new/people'
+    | '/new/review'
+    | '/new/settle'
+    | '/new/settlement'
+    | '/new/summary'
+    | '/new/upload'
+    | '/bills/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/activity'
+    | '/dashboard'
+    | '/people'
+    | '/bills/$id'
+    | '/new/assign'
+    | '/new/charges'
+    | '/new/manual'
+    | '/new/people'
+    | '/new/review'
+    | '/new/settle'
+    | '/new/settlement'
+    | '/new/summary'
+    | '/new/upload'
+    | '/bills'
+  id:
+    | '__root__'
+    | '/'
+    | '/activity'
+    | '/dashboard'
+    | '/people'
+    | '/bills/$id'
+    | '/new/assign'
+    | '/new/charges'
+    | '/new/manual'
+    | '/new/people'
+    | '/new/review'
+    | '/new/settle'
+    | '/new/settlement'
+    | '/new/summary'
+    | '/new/upload'
+    | '/bills/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActivityRoute: typeof ActivityRoute
+  DashboardRoute: typeof DashboardRoute
+  PeopleRoute: typeof PeopleRoute
+  BillsIdRoute: typeof BillsIdRoute
+  NewAssignRoute: typeof NewAssignRoute
+  NewChargesRoute: typeof NewChargesRoute
+  NewManualRoute: typeof NewManualRoute
+  NewPeopleRoute: typeof NewPeopleRoute
+  NewReviewRoute: typeof NewReviewRoute
+  NewSettleRoute: typeof NewSettleRoute
+  NewSettlementRoute: typeof NewSettlementRoute
+  NewSummaryRoute: typeof NewSummaryRoute
+  NewUploadRoute: typeof NewUploadRoute
+  BillsIndexRoute: typeof BillsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +234,123 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/activity': {
+      id: '/activity'
+      path: '/activity'
+      fullPath: '/activity'
+      preLoaderRoute: typeof ActivityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/people': {
+      id: '/people'
+      path: '/people'
+      fullPath: '/people'
+      preLoaderRoute: typeof PeopleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bills/': {
+      id: '/bills/'
+      path: '/bills'
+      fullPath: '/bills/'
+      preLoaderRoute: typeof BillsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bills/$id': {
+      id: '/bills/$id'
+      path: '/bills/$id'
+      fullPath: '/bills/$id'
+      preLoaderRoute: typeof BillsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new/assign': {
+      id: '/new/assign'
+      path: '/new/assign'
+      fullPath: '/new/assign'
+      preLoaderRoute: typeof NewAssignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new/charges': {
+      id: '/new/charges'
+      path: '/new/charges'
+      fullPath: '/new/charges'
+      preLoaderRoute: typeof NewChargesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new/manual': {
+      id: '/new/manual'
+      path: '/new/manual'
+      fullPath: '/new/manual'
+      preLoaderRoute: typeof NewManualRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new/people': {
+      id: '/new/people'
+      path: '/new/people'
+      fullPath: '/new/people'
+      preLoaderRoute: typeof NewPeopleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new/review': {
+      id: '/new/review'
+      path: '/new/review'
+      fullPath: '/new/review'
+      preLoaderRoute: typeof NewReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new/settle': {
+      id: '/new/settle'
+      path: '/new/settle'
+      fullPath: '/new/settle'
+      preLoaderRoute: typeof NewSettleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new/settlement': {
+      id: '/new/settlement'
+      path: '/new/settlement'
+      fullPath: '/new/settlement'
+      preLoaderRoute: typeof NewSettlementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new/summary': {
+      id: '/new/summary'
+      path: '/new/summary'
+      fullPath: '/new/summary'
+      preLoaderRoute: typeof NewSummaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new/upload': {
+      id: '/new/upload'
+      path: '/new/upload'
+      fullPath: '/new/upload'
+      preLoaderRoute: typeof NewUploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActivityRoute: ActivityRoute,
+  DashboardRoute: DashboardRoute,
+  PeopleRoute: PeopleRoute,
+  BillsIdRoute: BillsIdRoute,
+  NewAssignRoute: NewAssignRoute,
+  NewChargesRoute: NewChargesRoute,
+  NewManualRoute: NewManualRoute,
+  NewPeopleRoute: NewPeopleRoute,
+  NewReviewRoute: NewReviewRoute,
+  NewSettleRoute: NewSettleRoute,
+  NewSettlementRoute: NewSettlementRoute,
+  NewSummaryRoute: NewSummaryRoute,
+  NewUploadRoute: NewUploadRoute,
+  BillsIndexRoute: BillsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
