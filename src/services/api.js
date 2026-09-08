@@ -1,7 +1,7 @@
 /**
  * Frontend API service for SplitSnap.
  * Seamlessly connects to FastAPI backend at http://localhost:8000/api
- * with graceful fallback to local memory/mock data if backend is starting up.
+ * with graceful handling.
  */
 
 import { mockBills, mockActivity, demoExtraction } from "@/data/mockBills";
@@ -87,7 +87,7 @@ export const api = {
   async extractBill(file, { onStep } = {}) {
     const steps = ["uploaded", "text", "items", "charges", "review"];
     for (const step of steps) {
-      await new Promise((r) => setTimeout(r, 200));
+      await new Promise((r) => setTimeout(r, 250));
       onStep?.(step);
     }
 
@@ -105,29 +105,66 @@ export const api = {
       }
 
       const ocrResult = await response.json();
+
+      const items = (ocrResult.items || []).map((it, idx) => {
+        const qty = Number(it.quantity) || Number(it.qty) || 1;
+        const total = Number(it.total_price) || Number(it.total) || 0;
+        const unitPrice = Number(it.unit_price) || Number(it.unitPrice) || (qty > 0 ? total / qty : total);
+        const rawConf = it.confidence ?? 0.95;
+        const confPct = rawConf <= 1 ? Math.round(rawConf * 100) : Math.round(rawConf);
+
+        return {
+          id: it.id || `it_${idx + 1}`,
+          name: it.name || `Item ${idx + 1}`,
+          qty,
+          unitPrice,
+          total: total || (qty * unitPrice),
+          confidence: confPct,
+        };
+      });
+
+      const calcSubtotal = items.reduce((s, it) => s + it.total, 0);
+      const subtotal = Number(ocrResult.subtotal) || calcSubtotal;
+      const cgst = Number(ocrResult.cgst) || 0;
+      const sgst = Number(ocrResult.sgst) || 0;
+      const tax = Number(ocrResult.tax) || (cgst + sgst);
+      const serviceCharge = Number(ocrResult.service_charge) || Number(ocrResult.serviceCharge) || 0;
+      const discount = Number(ocrResult.discount) || 0;
+      const total = Number(ocrResult.total) || (subtotal + tax + serviceCharge - discount);
+
       return {
         id: `bill_${Date.now()}`,
-        title: ocrResult.merchant_name || "Receipt",
-        merchant_name: ocrResult.merchant_name || "Restaurant",
+        name: ocrResult.merchant_name || file?.name?.replace(/\.[^/.]+$/, "") || "Receipt Bill",
+        merchant: ocrResult.merchant_name || "Store / Restaurant",
         date: ocrResult.date || new Date().toISOString().split("T")[0],
+        category: "Groceries",
         currency: "INR",
-        subtotal: ocrResult.subtotal || 0,
-        cgst: ocrResult.cgst || 0,
-        sgst: ocrResult.sgst || 0,
-        service_charge: ocrResult.service_charge || 0,
-        discount: ocrResult.discount || 0,
-        total: ocrResult.total || 0,
-        confidence_score: ocrResult.confidence_score || 0.95,
-        items: ocrResult.items || [],
+        items,
+        subtotal,
+        tax,
+        cgst,
+        sgst,
+        serviceCharge,
+        discount,
+        otherCharges: 0,
+        total,
+        confidence: {
+          merchant: 98,
+          date: 96,
+          subtotal: 95,
+          tax: 95,
+          serviceCharge: 95,
+          discount: 99,
+          otherCharges: 99,
+          total: 99,
+        },
         sourceName: file?.name ?? "receipt",
       };
     } catch (err) {
-      console.warn("[API] OCR backend failed or unreachable, falling back to mock extraction:", err);
-      return {
-        ...demoExtraction,
-        id: `bill_${Date.now()}`,
-        sourceName: file?.name ?? "receipt",
-      };
+      console.error("[API] Live backend OCR failed or offline:", err);
+      throw new Error(
+        "Could not connect to FastAPI backend at http://localhost:8000. Please ensure the backend server is running (`python run.py`)."
+      );
     }
   },
 
